@@ -1,60 +1,6 @@
-/*import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-
-class AddTshirtForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      color: '',
-      sleeveLength: '',
-      neckline: ''
-    };
-  }
-
-  handleInputChange = (key, value) => {
-    this.setState({ [key]: value });
-  }
-
-  handleAddTshirt = () => {
-    const { color, sleeveLength, neckline } = this.state;
-    this.props.addTshirt(color, sleeveLength, neckline);
-    // Optionally, you can reset the form after adding the T-shirt
-    this.setState({ color: '', sleeveLength: '', neckline: '' });
-  }
-
-  render() {
-    return (
-      <View>
-        <Text>Color:</Text>
-        <TextInput
-          value={this.state.color}
-          onChangeText={value => this.handleInputChange('color', value)}
-        />
-        <Text>Sleeve Length:</Text>
-        <TextInput
-          value={this.state.sleeveLength}
-          onChangeText={value => this.handleInputChange('sleeveLength', value)}
-        />
-        <Text>Neckline:</Text>
-        <TextInput
-          value={this.state.neckline}
-          onChangeText={value => this.handleInputChange('neckline', value)}
-        />
-        <Button title="Add T-shirt" onPress={this.handleAddTshirt} />
-      </View>
-    );
-  }
-}
-
-export default AddTshirtForm;
-*/
-// Tops.js (or any other parent component)
-
-// Tops.js (or any other parent component)
-
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import AddTshirtForm from '../../components/AddTshirtForm' // Adjust the path as needed
+import { View, Text, Button } from 'react-native';
+import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
 
 interface Tshirt {
   id: string;
@@ -67,7 +13,6 @@ interface TopsState {
   tshirts: Tshirt[];
 }
 
-
 class Tops extends Component<{}, TopsState> {
   constructor(props: {}) {
     super(props);
@@ -76,8 +21,8 @@ class Tops extends Component<{}, TopsState> {
     };
   }
 
-  addTshirt = (color, sleeveLength, neckline) => {
-    const newTshirt = {
+  addTshirt = (color: string, sleeveLength: string, neckline: string) => {
+    const newTshirt: Tshirt = {
       id: Math.random().toString(36).substr(2, 9),
       color: color,
       sleeveLength: sleeveLength,
@@ -85,6 +30,11 @@ class Tops extends Component<{}, TopsState> {
     };
     this.setState(prevState => ({
       tshirts: [...prevState.tshirts, newTshirt]
+    }));
+  }
+  deleteTshirt = (id: string) => { //adding delete function
+    this.setState(prevState => ({
+      tshirts: prevState.tshirts.filter(tshirt => tshirt.id !== id)
     }));
   }
 
@@ -96,6 +46,7 @@ class Tops extends Component<{}, TopsState> {
         {this.state.tshirts.map(tshirt => (
           <View key={tshirt.id}>
             <Text>Color: {tshirt.color}, Sleeve: {tshirt.sleeveLength}, Neckline: {tshirt.neckline}</Text>
+            <Button title="Delete" onPress={() => this.deleteTshirt(tshirt.id)} />
           </View>
         ))}
         {/* Add T-shirt form */}
@@ -106,4 +57,3 @@ class Tops extends Component<{}, TopsState> {
 }
 
 export default Tops;
-

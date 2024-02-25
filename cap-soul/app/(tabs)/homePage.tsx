@@ -7,7 +7,6 @@ import { Image } from 'react-native';
 export default function HomePageScreen() {
   return (
     <View style={styles.container}>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Image source={require('../../assets/images/femaleModelBase.png')} style={{ width: 175, height: 500 }} resizeMode="contain" />      
     </View>
   );
@@ -18,6 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 0, // Ensure that the margin at the top is 0
+    paddingTop: 0, // Ensure that the padding at the top is also 0
   },
   title: {
     fontSize: 20,

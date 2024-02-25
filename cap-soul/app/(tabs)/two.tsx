@@ -28,11 +28,11 @@ const TabTwoScreen: React.FC = () => {
       <Text style={[styles.circleText, { left: secondCircleCenterX, top: circleCenterY - 10 }]}>50</Text>
       {/* Labels below circles */}
       <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: firstCircleCenterX - 75 }]}>Your Calculated Wardrobe Score</Text>
-      <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: firstCircleCenterX - 75 }]}>Est. Carbon Emmission: 10,000lb</Text>
-      <Text style={[styles.labelText, { top: circleCenterY + R + 160, left: firstCircleCenterX - 75 }]}>Est. Water Usage: 3500gal</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: firstCircleCenterX - 75 }]}>Est. Carbon Emission: 10,000lb</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 140, left: firstCircleCenterX - 75 }]}>Est. Water Usage: 3500gal</Text>
       <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: secondCircleCenterX - 75 }]}>Average American Wardrobe Score</Text>
-      <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: secondCircleCenterX - 75 }]}>Est. Carbon Emmission: 11,750lb</Text>
-      <Text style={[styles.labelText, { top: circleCenterY + R + 160, left: secondCircleCenterX - 75 }]}>Est. Water Usage: 5900gal</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: secondCircleCenterX - 75 }]}>Est. Carbon Emission: 11,750lb</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 140, left: secondCircleCenterX - 75 }]}>Est. Water Usage: 5900gal</Text>
       <Text style={styles.title}>Environmental Impact</Text>
       {/* Toggle Button for Collapsible Section */}
       <TouchableOpacity style={styles.toggleButton} onPress={() => setIsCollapsed(!isCollapsed)}>

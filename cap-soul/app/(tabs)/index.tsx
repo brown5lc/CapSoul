@@ -8,6 +8,7 @@ interface ClothingItem {
   id: string;
   category: string;
   color: string;
+  //cut: string; CHECK THIS 
   details: string;
 }
 
@@ -35,13 +36,21 @@ class Wardrobe extends Component<{}, WardrobeState> {
     this.saveClothingItems();
   }
 
-  addClothingItem = (category: string, color: string, details: string) => {
+  addClothingItem = (category: string, color: string, sleeveLength: string, neckline: string, type: string) => {
+    let details = ''; // Initialize an empty string
+    if (category === 'T-shirt') {
+      details += `Sleeve Length: ${sleeveLength}, Neckline: ${neckline}`; // Include sleeve length and neckline
+    } else if (category === 'Pants') {
+      details += `Type: ${type}`; // Include type for pants
+    }
+    
     const newClothingItem: ClothingItem = {
       id: Math.random().toString(36).substr(2, 9),
       category: category,
       color: color,
       details: details
     };
+    
     this.setState(prevState => ({
       clothingItems: [...prevState.clothingItems, newClothingItem]
     }));

@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button} from 'react-native';
 import PickerSelect from 'react-native-picker-select';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 interface AddTshirtFormState {
-  color: string;
-  size: string;
-  material: string;
+  color: string | undefined;
+  sleeveLength: string | undefined;
+  material: string | undefined;
 }
 
 interface AddTshirtFormProps {
-  addTshirt: (color: string, size: string, material: string) => void;
+  addTshirt: (color: string | undefined, sleeveLength: string | undefined, material: string | undefined) => void;
 }
 
 class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
   constructor(props: AddTshirtFormProps) {
     super(props);
     this.state = {
-      color: '',
-      size: '',
-      material: ''
+      color: undefined,
+      sleeveLength: undefined,
+      material: undefined,
     };
   }
 
   handleAddTshirt = () => {
-    const { color, size, material } = this.state;
-    this.props.addTshirt(color, size, material);
+    const { color, sleeveLength, material } = this.state;
+    this.props.addTshirt(color, sleeveLength, material);
     // Optionally, you can reset the form after adding the T-shirt
-    this.setState({ color: '', size: '', material: '' });
+    this.setState({ color: undefined, sleeveLength: undefined, material: undefined });
   }
 
   render() {
@@ -34,7 +36,7 @@ class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
       <View>
         <Text>Color:</Text>
         <PickerSelect
-          value={this.state.color}
+          value={this.state.color || undefined}
           onValueChange={(value) => this.setState({ color: value })}
           items={[
             { label: 'Red', value: 'red' },
@@ -46,19 +48,19 @@ class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
         
         <Text>Size:</Text>
         <PickerSelect
-          value={this.state.size}
-          onValueChange={(value) => this.setState({ size: value })}
+          value={this.state.sleeveLength || undefined}
+          onValueChange={(value) => this.setState({ sleeveLength: value })}
           items={[
-            { label: 'Small', value: 'small' },
-            { label: 'Medium', value: 'medium' },
-            { label: 'Large', value: 'large' },
-            // Add more size options as needed
+            { label: 'tank', value: 'tank' },
+            { label: 'short', value: 'short' },
+            { label: 'long', value: 'long' },
+            // Add more s options as needed
           ]}
         />
 
         <Text>Material:</Text>
         <PickerSelect
-          value={this.state.material}
+          value={this.state.material || undefined}
           onValueChange={(value) => this.setState({ material: value })}
           items={[
             { label: 'Cotton', value: 'cotton' },

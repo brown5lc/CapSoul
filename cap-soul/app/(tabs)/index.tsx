@@ -1,91 +1,115 @@
 import React, { Component } from 'react';
 import { View, Text, Button} from 'react-native';
 import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
+import AddPantsForm from '../../components/AddPantsForm';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-interface Tshirt {
-  id: string | undefined;
-  color: string | undefined;
-  sleeveLength: string | undefined;
-  neckline: string | undefined;
+interface ClothingItem {
+  id: string;
+  category: string;
+  color: string;
+  details: string;
 }
 
-interface TopsState {
-  tshirts: Tshirt[];
+interface WardrobeState {
+  clothingItems: ClothingItem[];
+  selectedCategory: string | null;
 }
 
-class Tops extends Component<{}, TopsState> {
+class Wardrobe extends Component<{}, WardrobeState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      tshirts: []
+      clothingItems: [],
+      selectedCategory: null
     };
   }
+
   componentDidMount() {
-    // Load wardrobe data from AsyncStorage when component mounts
-    this.loadWardrobeData();
+    // Load clothing items from AsyncStorage when the component mounts
+    this.loadClothingItems();
   }
 
   componentDidUpdate() {
-    // Save wardrobe data to AsyncStorage when component updates
-    this.saveWardrobeData();
+    // Save clothing items to AsyncStorage when the component updates
+    this.saveClothingItems();
   }
 
-  saveWardrobeData = async () => {
-    try {
-      await AsyncStorage.setItem('wardrobe', JSON.stringify(this.state.tshirts));
-    } catch (error) {
-      console.error('Error saving wardrobe data:', error);
-    }
-  };
-
-  loadWardrobeData = async () => {
-    try {
-      const wardrobeData = await AsyncStorage.getItem('wardrobe');
-      if (wardrobeData !== null) {
-        this.setState({ tshirts: JSON.parse(wardrobeData) });
-      }
-    } catch (error) {
-      console.error('Error loading wardrobe data:', error);
-    }
-  };
-  
-  addTshirt = (color: string | undefined, sleeveLength: string | undefined, neckline: string | undefined) => {
-    const newTshirt: Tshirt = {
+  addClothingItem = (category: string, color: string, details: string) => {
+    const newClothingItem: ClothingItem = {
       id: Math.random().toString(36).substr(2, 9),
+      category: category,
       color: color,
-      sleeveLength: sleeveLength,
-      neckline: neckline
+      details: details
     };
     this.setState(prevState => ({
-      tshirts: [...prevState.tshirts, newTshirt]
+      clothingItems: [...prevState.clothingItems, newClothingItem]
     }));
   }
 
-  deleteTshirt = (id: string | undefined) => {
+  deleteClothingItem = (id: string) => {
     this.setState(prevState => ({
-      tshirts: prevState.tshirts.filter(tshirt => tshirt.id !== id)
+      clothingItems: prevState.clothingItems.filter(item => item.id !== id)
     }));
   }
+
+  selectCategory = (category: string) => {
+    this.setState({ selectedCategory: category });
+  }
+
+  saveClothingItems = async () => {
+    try {
+      await AsyncStorage.setItem('clothingItems', JSON.stringify(this.state.clothingItems));
+    } catch (error) {
+      console.error('Error saving clothing items:', error);
+    }
+  };
+
+  loadClothingItems = async () => {
+    try {
+      const clothingItemsData = await AsyncStorage.getItem('clothingItems');
+      if (clothingItemsData !== null) {
+        this.setState({ clothingItems: JSON.parse(clothingItemsData) });
+      }
+    } catch (error) {
+      console.error('Error loading clothing items:', error);
+    }
+  };
 
   render() {
+    const { selectedCategory } = this.state;
+
+    let categoryForm = null;
+    if (selectedCategory === 'T-shirt') {
+      categoryForm = <AddTshirtForm addClothingItem={this.addClothingItem} />;
+    } else if (selectedCategory === 'Pants') {
+      categoryForm = <AddPantsForm addClothingItem={this.addClothingItem} />;
+    } // Add more else if statements for other clothing categories
+
     return (
       <View>
-        <Text>T-shirts:</Text>
-        {/* Render existing T-shirts */}
-        {this.state.tshirts.map(tshirt => (
-          <View key={tshirt.id}>
-            <Text>Color: {tshirt.color}, Sleeve: {tshirt.sleeveLength}, Neckline: {tshirt.neckline}</Text>
-            <Button title="Delete" onPress={() => this.deleteTshirt(tshirt.id)} />
+        <Text>Select Clothing Category:</Text>
+        <Button title="T-shirt" onPress={() => this.selectCategory('T-shirt')} />
+        <Button title="Pants" onPress={() => this.selectCategory('Pants')} />
+        {/* Add more buttons for other clothing categories */}
+        
+        {categoryForm && (
+          <View>
+            <Text>{selectedCategory} Details:</Text>
+            {categoryForm}
+          </View>
+        )}
+
+        <Text>Selected Clothing Items:</Text>
+        {this.state.clothingItems.map(item => (
+          <View key={item.id}>
+            <Text>Category: {item.category}, Color: {item.color}, Details: {item.details}</Text>
+            <Button title="Delete" onPress={() => this.deleteClothingItem(item.id)} />
           </View>
         ))}
-        {/* Add T-shirt form */}
-        <AddTshirtForm addTshirt={this.addTshirt} />
       </View>
     );
   }
 }
 
-export default Tops;
-
-
+export default Wardrobe;

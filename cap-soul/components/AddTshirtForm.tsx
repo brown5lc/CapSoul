@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, Button} from 'react-native';
+import { View, Text, Button } from 'react-native';
 import PickerSelect from 'react-native-picker-select';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
-
-interface AddTshirtFormState {
-  color: string | undefined;
-  sleeveLength: string | undefined;
-  material: string | undefined;
-}
 
 interface AddTshirtFormProps {
-  addTshirt: (color: string | undefined, sleeveLength: string | undefined, material: string | undefined) => void;
+  addClothingItem: (category: string, color: string, details: string) => void;
+}
+
+interface AddTshirtFormState {
+  color: string;
+  sleeveLength: string;
+  cut: string;
 }
 
 class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
   constructor(props: AddTshirtFormProps) {
     super(props);
     this.state = {
-      color: undefined,
-      sleeveLength: undefined,
-      material: undefined,
+      color: '',
+      sleeveLength: '',
+      cut: ''
     };
   }
 
   handleAddTshirt = () => {
-    const { color, sleeveLength, material } = this.state;
-    this.props.addTshirt(color, sleeveLength, material);
-    // Optionally, you can reset the form after adding the T-shirt
-    this.setState({ color: undefined, sleeveLength: undefined, material: undefined });
+    const { color, sleeveLength } = this.state;
+    this.props.addClothingItem('T-shirt', color, `Sleeve: ${sleeveLength}`);
+    this.setState({ color: '', sleeveLength: '' });
   }
 
   render() {
@@ -36,37 +33,33 @@ class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
       <View>
         <Text>Color:</Text>
         <PickerSelect
-          value={this.state.color || undefined}
+          value={this.state.color}
           onValueChange={(value) => this.setState({ color: value })}
           items={[
             { label: 'Red', value: 'red' },
             { label: 'Blue', value: 'blue' },
             { label: 'Green', value: 'green' },
-            // Add more color options as needed
-          ]}
-        />
-        
-        <Text>Size:</Text>
-        <PickerSelect
-          value={this.state.sleeveLength || undefined}
-          onValueChange={(value) => this.setState({ sleeveLength: value })}
-          items={[
-            { label: 'tank', value: 'tank' },
-            { label: 'short', value: 'short' },
-            { label: 'long', value: 'long' },
-            // Add more s options as needed
           ]}
         />
 
-        <Text>Material:</Text>
+        <Text>Sleeve Length:</Text>
         <PickerSelect
-          value={this.state.material || undefined}
-          onValueChange={(value) => this.setState({ material: value })}
+          value={this.state.sleeveLength}
+          onValueChange={(value) => this.setState({ sleeveLength: value })}
           items={[
-            { label: 'Cotton', value: 'cotton' },
-            { label: 'Polyester', value: 'polyester' },
-            { label: 'Blend', value: 'blend' },
-            // Add more material options as needed
+            { label: 'Short Sleeve', value: 'short' },
+            { label: 'Long Sleeve', value: 'long' },
+          ]}
+        />
+
+        <Text>Cut:</Text>
+        <PickerSelect
+          value={this.state.cut}
+          onValueChange={(value) => this.setState({sleeveLength: value})}
+          items={[
+            { label: 'V neck', value: 'V neck'},
+            { label: 'Crew neck', value: 'Crew neck'},
+            { label: 'Collar', value: 'Collar'},
           ]}
         />
         

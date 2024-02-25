@@ -52,7 +52,7 @@ export default function TabLayout() {
         name="two"
         options={{
           title: 'CapSoul',
-          tabBarIcon: ({ color }) => <Ionicons name="leaf" size={24} color="#2f5c08" />,
+          tabBarIcon: ({ color }) => <Ionicons name="leaf" size={24} color="#73815d" />,
         }}
       />
     </Tabs>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Dimensions, StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import Collapsible from 'react-native-collapsible';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const { width, height } = Dimensions.get('window');
 const Circle_Length = 400;
@@ -19,7 +19,7 @@ const TabTwoScreen: React.FC = () => {
       
       <Svg>
         <Circle cx={firstCircleCenterX} cy={circleCenterY} r={R} stroke={'white'} strokeWidth={15} fill="#f0e5d6" />
-        <Circle cx={firstCircleCenterX} cy={circleCenterY} r={R} stroke="#10732f" strokeWidth={15} fill="#f0e5d6" strokeDasharray={Circle_Length} strokeDashoffset={Circle_Length * 0.2} />
+        <Circle cx={firstCircleCenterX} cy={circleCenterY} r={R} stroke="#73815d" strokeWidth={15} fill="#f0e5d6" strokeDasharray={Circle_Length} strokeDashoffset={Circle_Length * 0.2} />
         <Circle cx={secondCircleCenterX} cy={circleCenterY} r={R} stroke={'white'} strokeWidth={15} fill="#f0e5d6" />
         <Circle cx={secondCircleCenterX} cy={circleCenterY} r={R} stroke="#701212" strokeWidth={15} fill="#f0e5d6" strokeDasharray={Circle_Length} strokeDashoffset={Circle_Length * 0.5} />
       </Svg>
@@ -27,10 +27,10 @@ const TabTwoScreen: React.FC = () => {
       <Text style={[styles.circleText, { left: firstCircleCenterX, top: circleCenterY - 10 }]}>80</Text>
       <Text style={[styles.circleText, { left: secondCircleCenterX, top: circleCenterY - 10 }]}>50</Text>
       {/* Labels below circles */}
-      <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: firstCircleCenterX - 75 }]}>Your Calculated Wardrobe Score</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: firstCircleCenterX - 75 }]}>Your Recyclability: 90/100</Text>
       <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: firstCircleCenterX - 75 }]}>Est. Carbon Emission: 10,000lb</Text>
       <Text style={[styles.labelText, { top: circleCenterY + R + 140, left: firstCircleCenterX - 75 }]}>Est. Water Usage: 3500gal</Text>
-      <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: secondCircleCenterX - 75 }]}>Average American Wardrobe Score</Text>
+      <Text style={[styles.labelText, { top: circleCenterY + R + 20, left: secondCircleCenterX - 75 }]}>Avg Recyclability: 40/100</Text>
       <Text style={[styles.labelText, { top: circleCenterY + R + 80, left: secondCircleCenterX - 75 }]}>Est. Carbon Emission: 11,750lb</Text>
       <Text style={[styles.labelText, { top: circleCenterY + R + 140, left: secondCircleCenterX - 75 }]}>Est. Water Usage: 5900gal</Text>
       <Text style={styles.title}>Environmental Impact</Text>
@@ -85,7 +85,6 @@ cleaning is also suitable. Fold your garment for storage to prevent it from stre
         </View>
       </Collapsible>
       <Text> </Text>
-      <MaterialCommunityIcons name="hanger" size={50} color="#4b6654" />
     </View>
   );
 };
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
   },
   toggleButton: {
     marginTop: -190,
-    backgroundColor: '#4b6654',
+    backgroundColor: '#73815d',
     borderColor: "black",
     borderWidth: 2,
     padding: 10,
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
   },
   toggleButtont: {
     marginTop: 20,
-    backgroundColor: '#10732f',
+    backgroundColor: '#1b381a',
     borderColor: "black",
     borderWidth: 2,
     padding: 10,

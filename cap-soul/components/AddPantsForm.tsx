@@ -3,7 +3,7 @@ import { View, Text, Button } from 'react-native';
 import PickerSelect from 'react-native-picker-select';
 
 interface AddPantsFormProps {
-  addClothingItem: (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string) => void;
+  addClothingItem: (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string, piece: string) => void;
   //update when new stuff is made
 }
 
@@ -23,7 +23,7 @@ class AddPantsForm extends Component<AddPantsFormProps, AddPantsFormState> {
 
   handleAddPants = () => {
     const { color, type } = this.state;
-    this.props.addClothingItem('Pants', color, type, '', '', '');
+    this.props.addClothingItem('Pants', color, '', '', type, '', ''); // Pass empty strings for sleeveLength and neckline
     this.setState({ color: '', type: '' });
   }
 

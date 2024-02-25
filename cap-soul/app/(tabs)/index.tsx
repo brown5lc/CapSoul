@@ -3,6 +3,7 @@ import { View, Text, Button} from 'react-native';
 import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
 import AddPantsForm from '../../components/AddPantsForm';
 import AddShoeForm from '../../components/AddShoesForm';
+import AddHatsForm from '../../components/AddHatsForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ClothingItem {
@@ -37,17 +38,20 @@ class Wardrobe extends Component<{}, WardrobeState> {
     this.saveClothingItems();
   }
 
-  addClothingItem =  async (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string) => {
+  addClothingItem = async (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string, piece: string) => {
     let details = '';
     if (category === 'T-shirt') {
       details += `Sleeve Length: ${sleeveLength}, Neckline: ${neckline}`; // Include sleeve length and neckline
-    } 
-    else if (category === 'Pants') {
+    } else if (category === 'Pants') {
       details += `Type: ${type}`; // Include type for pants
+    } else if (category === 'Shoes') {
+      details += `Style: ${style}`; // Include style for shoes
+    } else if (category === 'Hats'){
+      details += `Piece: ${piece}`; //Include piece for hats
     }
-    else if (category === 'Shoes') {
-      details += `Style: ${style}`; // Include type for pants
-    }
+    
+    console.log('Details:', details);
+
     const newClothingItem: ClothingItem = {
       id: Math.random().toString(36).substr(2, 9),
       category: category,
@@ -97,9 +101,10 @@ class Wardrobe extends Component<{}, WardrobeState> {
       categoryForm = <AddTshirtForm addClothingItem={this.addClothingItem} />;
     } else if (selectedCategory === 'Pants') {
       categoryForm = <AddPantsForm addClothingItem={this.addClothingItem} />;
-    } // Add more else if statements for other clothing categories
-    else if (selectedCategory === 'Shoes') {
+    } else if (selectedCategory === 'Shoes') {
       categoryForm = <AddShoeForm addClothingItem={this.addClothingItem} />;
+    } else if (selectedCategory === 'Hats'){
+      categoryForm = <AddHatsForm addClothingItem={this.addClothingItem} />;
     }
     return (
       <View>
@@ -107,6 +112,7 @@ class Wardrobe extends Component<{}, WardrobeState> {
         <Button title="T-shirt" onPress={() => this.selectCategory('T-shirt')} />
         <Button title="Pants" onPress={() => this.selectCategory('Pants')} />
         <Button title="Shoes" onPress={() => this.selectCategory('Shoes')}/>
+        <Button title="Hats" onPress={() => this.selectCategory('Hats')}/>
         {/* Add more buttons for other clothing categories */}
         
         {categoryForm && (

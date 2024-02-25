@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet, Text, View, TouchableOpacity, Button} from 'rea
 import Svg, { Circle } from 'react-native-svg';
 import Collapsible from 'react-native-collapsible';
 
-
 const { width, height } = Dimensions.get('window');
 const Circle_Length = 400;
 const R = Circle_Length / (2 * Math.PI);

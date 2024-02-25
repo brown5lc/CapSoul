@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button} from 'react-native';
-import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
+import { View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import AddTshirtForm from '../../components/AddTshirtForm';
 import AddPantsForm from '../../components/AddPantsForm';
 import AddShoeForm from '../../components/AddShoesForm';
 import AddHatsForm from '../../components/AddHatsForm';
@@ -10,7 +10,6 @@ interface ClothingItem {
   id: string;
   category: string;
   color: string;
-  //cut: string; CHECK THIS 
   details: string;
 }
 
@@ -29,29 +28,25 @@ class Wardrobe extends Component<{}, WardrobeState> {
   }
 
   componentDidMount() {
-    // Load clothing items from AsyncStorage when the component mounts
     this.loadClothingItems();
   }
 
   componentDidUpdate() {
-    // Save clothing items to AsyncStorage when the component updates
     this.saveClothingItems();
   }
 
   addClothingItem = async (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string, piece: string) => {
     let details = '';
     if (category === 'T-shirt') {
-      details += `Sleeve Length: ${sleeveLength}, Neckline: ${neckline}`; // Include sleeve length and neckline
+      details += `Sleeve Length: ${sleeveLength}, Neckline: ${neckline}`;
     } else if (category === 'Pants') {
-      details += `Type: ${type}`; // Include type for pants
+      details += `Type: ${type}`;
     } else if (category === 'Shoes') {
-      details += `Style: ${style}`; // Include style for shoes
+      details += `Style: ${style}`;
     } else if (category === 'Hats'){
-      details += `Piece: ${piece}`; //Include piece for hats
+      details += `Piece: ${piece}`;
     }
     
-    console.log('Details:', details);
-
     const newClothingItem: ClothingItem = {
       id: Math.random().toString(36).substr(2, 9),
       category: category,
@@ -106,15 +101,23 @@ class Wardrobe extends Component<{}, WardrobeState> {
     } else if (selectedCategory === 'Hats'){
       categoryForm = <AddHatsForm addClothingItem={this.addClothingItem} />;
     }
+
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Select Clothing Category:</Text>
-        <Button title="T-shirt" onPress={() => this.selectCategory('T-shirt')} />
-        <Button title="Pants" onPress={() => this.selectCategory('Pants')} />
-        <Button title="Shoes" onPress={() => this.selectCategory('Shoes')}/>
-        <Button title="Hats" onPress={() => this.selectCategory('Hats')}/>
-        {/* Add more buttons for other clothing categories */}
-        
+        <View style={styles.categoryButton}>
+          <Button title="T-shirt" onPress={() => this.selectCategory('T-shirt')} />
+        </View>
+        <View style={styles.categoryButton}>
+          <Button title="Pants" onPress={() => this.selectCategory('Pants')} />
+        </View>
+        <View style={styles.categoryButton}>
+          <Button title="Shoes" onPress={() => this.selectCategory('Shoes')} />
+        </View>
+        <View style={styles.categoryButton}>
+          <Button title="Hats" onPress={() => this.selectCategory('Hats')} />
+        </View>
+
         {categoryForm && (
           <View>
             <Text>{selectedCategory} Details:</Text>
@@ -133,5 +136,17 @@ class Wardrobe extends Component<{}, WardrobeState> {
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0e5d6',
+    padding: 20,
+  },
+  categoryButton: {
+    padding: 4,
+    backgroundColor: '#73815d',
+    marginBottom: 10,
+  },
+});
 
 export default Wardrobe;

@@ -1,10 +1,11 @@
-import { StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, TouchableOpacity, Text } from 'react-native';
 import React, { useState } from 'react';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+//import EditScreenInfo from '@/components/EditScreenInfo';
+//import { Text, View } from '@/components/Themed';
+import { View } from 'react-native';
 import { Image } from 'react-native';
-import { Feather, AntDesign, FontAwesome } from '@expo/vector-icons';
+import { Feather, AntDesign, FontAwesome, Ionicons} from '@expo/vector-icons';
 
 export default function HomePageScreen() {
   const shirts = [
@@ -21,6 +22,9 @@ export default function HomePageScreen() {
     require('../../assets/images/bottoms/leggingPants.png'),
     require('../../assets/images/bottoms/lightJeanPants.png'),
   ]
+
+  const dayName: string = 'Sunday';
+  const date: string = 'February 25, 2024';
 
     // State to manage the current clothing image source
   const [clothingImageSource, setClothingImageSource] = useState(shirts[0]);
@@ -54,6 +58,14 @@ export default function HomePageScreen() {
       <View style={styles.settingsButton}>
         <FontAwesome name="gear" size={24} color="black" />
       </View>
+      <View style={styles.weatherIcon}>
+        <Ionicons name="sunny-outline" size={24} color="black" />
+        <Text> 42°F</Text>
+      </View>
+      <View style={styles.dateContainer}>
+        <Text style={styles.dayText}>{dayName}</Text>
+        <Text style={styles.dateText}>{date}</Text>
+      </View>
     </View>
     
   );
@@ -67,6 +79,7 @@ const styles = StyleSheet.create({
     marginTop: 0, // Ensure that the margin at the top is 0
     paddingTop: 0, // Ensure that the padding at the top is also 0
     position: 'relative',
+    backgroundColor: '#f0e5d6',
   },
   title: {
     fontSize: 20,
@@ -102,6 +115,29 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 675,
     right: 30,
+    zIndex: 2,
+  },
+    dateContainer: {
+    position: 'absolute',
+    top: 25, // Adjust this value to control the space from the top of the screen
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 3,
+  },
+  dayText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1b381a',
+  },
+  dateText: {
+    fontSize: 16,
+    color: '#73815d',
+  },
+  weatherIcon: {
+    position: 'absolute',
+    top: 30,
+    left: 35,
     zIndex: 2,
   },
 });

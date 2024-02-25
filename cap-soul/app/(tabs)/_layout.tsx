@@ -58,7 +58,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="homePage"
         options={{
-          title: 'CapSoul',
+          title: 'Home',
           tabBarIcon: ({ color }) => (
           <AntDesign name="home" size={24} color={color} />),
         }}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Picker } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import PickerSelect from 'react-native-picker-select';
 
 interface AddTshirtFormState {
   color: string;
@@ -32,37 +33,40 @@ class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
     return (
       <View>
         <Text>Color:</Text>
-        <Picker
-          selectedValue={this.state.color}
-          onValueChange={(itemValue, itemIndex) => this.setState({ color: itemValue })}
-        >
-          <Picker.Item label="Red" value="red" />
-          <Picker.Item label="Blue" value="blue" />
-          <Picker.Item label="Green" value="green" />
-          {/* Add more color options as needed */}
-        </Picker>
+        <PickerSelect
+          value={this.state.color}
+          onValueChange={(value) => this.setState({ color: value })}
+          items={[
+            { label: 'Red', value: 'red' },
+            { label: 'Blue', value: 'blue' },
+            { label: 'Green', value: 'green' },
+            // Add more color options as needed
+          ]}
+        />
         
         <Text>Size:</Text>
-        <Picker
-          selectedValue={this.state.size}
-          onValueChange={(itemValue, itemIndex) => this.setState({ size: itemValue })}
-        >
-          <Picker.Item label="Small" value="small" />
-          <Picker.Item label="Medium" value="medium" />
-          <Picker.Item label="Large" value="large" />
-          {/* Add more size options as needed */}
-        </Picker>
+        <PickerSelect
+          value={this.state.size}
+          onValueChange={(value) => this.setState({ size: value })}
+          items={[
+            { label: 'Small', value: 'small' },
+            { label: 'Medium', value: 'medium' },
+            { label: 'Large', value: 'large' },
+            // Add more size options as needed
+          ]}
+        />
 
         <Text>Material:</Text>
-        <Picker
-          selectedValue={this.state.material}
-          onValueChange={(itemValue, itemIndex) => this.setState({ material: itemValue })}
-        >
-          <Picker.Item label="Cotton" value="cotton" />
-          <Picker.Item label="Polyester" value="polyester" />
-          <Picker.Item label="Blend" value="blend" />
-          {/* Add more material options as needed */}
-        </Picker>
+        <PickerSelect
+          value={this.state.material}
+          onValueChange={(value) => this.setState({ material: value })}
+          items={[
+            { label: 'Cotton', value: 'cotton' },
+            { label: 'Polyester', value: 'polyester' },
+            { label: 'Blend', value: 'blend' },
+            // Add more material options as needed
+          ]}
+        />
         
         <Button title="Add T-shirt" onPress={this.handleAddTshirt} />
       </View>

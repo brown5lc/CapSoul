@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
 
 interface Tshirt {
@@ -32,11 +32,6 @@ class Tops extends Component<{}, TopsState> {
       tshirts: [...prevState.tshirts, newTshirt]
     }));
   }
-  deleteTshirt = (id: string) => { //adding delete function
-    this.setState(prevState => ({
-      tshirts: prevState.tshirts.filter(tshirt => tshirt.id !== id)
-    }));
-  }
 
   render() {
     return (
@@ -46,7 +41,6 @@ class Tops extends Component<{}, TopsState> {
         {this.state.tshirts.map(tshirt => (
           <View key={tshirt.id}>
             <Text>Color: {tshirt.color}, Sleeve: {tshirt.sleeveLength}, Neckline: {tshirt.neckline}</Text>
-            <Button title="Delete" onPress={() => this.deleteTshirt(tshirt.id)} />
           </View>
         ))}
         {/* Add T-shirt form */}
@@ -57,3 +51,5 @@ class Tops extends Component<{}, TopsState> {
 }
 
 export default Tops;
+
+

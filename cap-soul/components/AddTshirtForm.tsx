@@ -3,7 +3,8 @@ import { View, Text, Button } from 'react-native';
 import PickerSelect from 'react-native-picker-select';
 
 interface AddTshirtFormProps {
-  addClothingItem: (category: string, color: string, sleeveLength: string, neckline: string, type: string) => void;
+  addClothingItem: (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string) => void;
+  //update when new stuff is added
 }
 
 interface AddTshirtFormState {
@@ -24,7 +25,7 @@ class AddTshirtForm extends Component<AddTshirtFormProps, AddTshirtFormState> {
 
   handleAddTshirt = () => {
     const { color, sleeveLength, cut } = this.state;
-    this.props.addClothingItem('T-shirt', color, sleeveLength, cut, '');
+    this.props.addClothingItem('T-shirt', color, sleeveLength, cut, '', '');
     this.setState({ color: '', sleeveLength: '', cut: '' });
   }
 

@@ -2,29 +2,28 @@ import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import PickerSelect from 'react-native-picker-select';
 
-interface AddPantsFormProps {
+interface AddShoesFormProps {
   addClothingItem: (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string) => void;
-  //update when new stuff is made
 }
 
-interface AddPantsFormState {
+interface AddShoesFormState {
   color: string;
-  type: string;
+  style: string;
 }
 
-class AddPantsForm extends Component<AddPantsFormProps, AddPantsFormState> {
-  constructor(props: AddPantsFormProps) {
+class AddShoesForm extends Component<AddShoesFormProps, AddShoesFormState> {
+  constructor(props: AddShoesFormProps) {
     super(props);
     this.state = {
       color: '',
-      type: ''
+      style: ''
     };
   }
 
-  handleAddPants = () => {
-    const { color, type } = this.state;
-    this.props.addClothingItem('Pants', color, type, '', '', '');
-    this.setState({ color: '', type: '' });
+  handleAddShoes = () => {
+    const { color, style } = this.state;
+    this.props.addClothingItem('Shoes', color, style, '', '', '');
+    this.setState({ color: '', style: '' });
   }
 
   render() {
@@ -41,21 +40,21 @@ class AddPantsForm extends Component<AddPantsFormProps, AddPantsFormState> {
           ]}
         />
 
-        <Text>Type:</Text>
+        <Text>Style:</Text>
         <PickerSelect
-          value={this.state.type}
-          onValueChange={(value) => this.setState({ type: value })}
+          value={this.state.style}
+          onValueChange={(value) => this.setState({ style: value })}
           items={[
-            { label: 'Jeans', value: 'jeans' },
-            { label: 'Khakis', value: 'khakis' },
-            { label: 'Shorts', value: 'shorts' },
+            { label: 'Dress', value: 'dress' },
+            { label: 'Sneakers', value: 'sneakers' },
+            { label: 'Flip Flops', value: 'flip flops' },
           ]}
         />
         
-        <Button title="Add Pants" onPress={this.handleAddPants} />
+        <Button title="Add Shoes" onPress={this.handleAddShoes} />
       </View>
     );
   }
 }
 
-export default AddPantsForm;
+export default AddShoesForm;

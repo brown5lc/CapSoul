@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, Button} from 'react-native';
 import AddTshirtForm from '../../components/AddTshirtForm'; // Adjust the path as needed
 import AddPantsForm from '../../components/AddPantsForm';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AddShoeForm from '../../components/AddShoesForm';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ClothingItem {
   id: string;
@@ -36,14 +37,17 @@ class Wardrobe extends Component<{}, WardrobeState> {
     this.saveClothingItems();
   }
 
-  addClothingItem = (category: string, color: string, sleeveLength: string, neckline: string, type: string) => {
-    let details = ''; // Initialize an empty string
+  addClothingItem =  async (category: string, color: string, sleeveLength: string, neckline: string, type: string, style: string) => {
+    let details = '';
     if (category === 'T-shirt') {
       details += `Sleeve Length: ${sleeveLength}, Neckline: ${neckline}`; // Include sleeve length and neckline
-    } else if (category === 'Pants') {
+    } 
+    else if (category === 'Pants') {
       details += `Type: ${type}`; // Include type for pants
     }
-    
+    else if (category === 'Shoes') {
+      details += `Style: ${style}`; // Include type for pants
+    }
     const newClothingItem: ClothingItem = {
       id: Math.random().toString(36).substr(2, 9),
       category: category,
@@ -94,12 +98,15 @@ class Wardrobe extends Component<{}, WardrobeState> {
     } else if (selectedCategory === 'Pants') {
       categoryForm = <AddPantsForm addClothingItem={this.addClothingItem} />;
     } // Add more else if statements for other clothing categories
-
+    else if (selectedCategory === 'Shoes') {
+      categoryForm = <AddShoeForm addClothingItem={this.addClothingItem} />;
+    }
     return (
       <View>
         <Text>Select Clothing Category:</Text>
         <Button title="T-shirt" onPress={() => this.selectCategory('T-shirt')} />
         <Button title="Pants" onPress={() => this.selectCategory('Pants')} />
+        <Button title="Shoes" onPress={() => this.selectCategory('Shoes')}/>
         {/* Add more buttons for other clothing categories */}
         
         {categoryForm && (

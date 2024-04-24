@@ -14,7 +14,7 @@ CapSoul is built with React Native and can be run on both iOS and Android device
 
 1. **Clone the repository:**
    ```
-   git clone <repository-url>
+   git clone https://github.com/brown5lc/CapSoul.git
    ```
 
 2. **Install dependencies:**
